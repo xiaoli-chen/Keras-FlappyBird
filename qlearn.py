@@ -1,5 +1,5 @@
 #!/usr/bin/env python
-
+# 该代码源自yanpanlau的Keras-FlappyBird，陈晓理做出Keras调用上的相应更新，以便在最新版本上使用
 # 申明调包
 from __future__ import print_function
 
@@ -62,7 +62,7 @@ def buildmodel():
     print("We finish building the model")
     return model
 
-def trainNetwork(model,args):
+def trainNetwork(model,args): # 训练强化学习模型
     # 从游戏模拟器中识别游戏状态
     game_state = game.GameState() #flappy bird小游戏的状态
 
@@ -95,7 +95,7 @@ def trainNetwork(model,args):
         model.compile(loss='mse',optimizer=adam)
         print ("Weight load successfully")    
     else:                       # 训练模型
-        OBSERVE = OBSERVATION
+        OBSERVE = OBSERVATION  # 如果需要训练模型，那么在观测了OBSERVATION次之后，进行训练
         epsilon = INITIAL_EPSILON
 
     t = 0
