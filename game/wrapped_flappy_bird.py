@@ -185,6 +185,8 @@ def checkCrash(player, upperPipes, lowerPipes):
     # if player crashes into ground
     if player['y'] + player['h'] >= BASEY - 1:
         return True
+    elif player['y'] + player['h']<=1:
+        return True
     else:
 
         playerRect = pygame.Rect(player['x'], player['y'],

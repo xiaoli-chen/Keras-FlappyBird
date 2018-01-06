@@ -29,7 +29,7 @@ GAME = 'bird' # 日志文件中游戏的名称
 CONFIG = 'nothreshold'
 ACTIONS = 2 # 有效动作的数量
 GAMMA = 0.99 # 衰减速度
-OBSERVATION = 3200. # 开始训练前的观测时长 timesteps to observe before training
+OBSERVATION = 5000. # 开始训练前的观测时长 timesteps to observe before training
 EXPLORE = 3000000. # frames over which to anneal epsilon
 FINAL_EPSILON = 0.0001 # epsilon的最终值
 INITIAL_EPSILON = 0.1 # epsilon的其实值
@@ -43,7 +43,7 @@ img_rows , img_cols = 80, 80
 img_channels = 4 # 4幅画面叠在一起进行学习
 
 def buildmodel():
-    # 以下利用卷积神经网进行图像识别
+    # 以下利用卷积神经网
     print("Now we build the model")
     model = Sequential()
     model.add(Convolution2D(32, 8, 8, subsample=(4, 4), border_mode='same',input_shape=(img_rows,img_cols,img_channels)))  #80*80*4
@@ -109,6 +109,10 @@ def trainNetwork(model,args): # 训练强化学习模型
         if t % FRAME_PER_ACTION == 0:
             if random.random() <= epsilon:
                 print("----------Random Action----------")
+                #if random.random()<=0.9:
+                #    action_index=0
+                #else:
+                #    action_index=1
                 action_index = random.randrange(ACTIONS)
                 a_t[action_index] = 1
             else:
