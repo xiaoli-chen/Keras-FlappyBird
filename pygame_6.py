@@ -15,6 +15,7 @@ SCREENHEIGHT = 512
 BASEY = SCREENHEIGHT * 0.79
 PIPEGAPSIZE = 100
 PIPE_WIDTH = 10
+PLAYER_HEIGHT = 5
 IMAGES = {}
 import pygame
 from pygame.locals import *
@@ -62,7 +63,7 @@ flap  = 0 # 扑腾的状态
 def getRandomPipe():
     """returns a generated pipe"""
     # y of gap between upper and lower pipe
-    gapYs = [10, 40, 60, 90, 130, 190, 240, 300]
+    gapYs = [10, 40, 60, 90, 120, 150, 190, 240]
     index = random.randint(0, len(gapYs)-1)
     gapY = gapYs[index]
 
@@ -79,9 +80,10 @@ pipeVelX = -4
 playerVelY    =  0    # player's velocity along Y, default same as playerFlapped
 playerMaxVelY =  10   # max vel along Y, max descend speed
 playerMinVelY =  -8   # min vel along Y, max ascend speed
-playerAccY    =   1   # players downward accleration
-playerFlapAcc =  -8   # players speed on flapping
+playerAccY    =   2   # 1   # players downward accleration
+playerFlapAcc =  -3   # -8   # players speed on flapping
 playerFlapped = False # True when player flaps
+playery = int((SCREENHEIGHT - PLAYER_HEIGHT) / 2)
 
 newPipe1 = getRandomPipe()
 upperPipes = [
@@ -115,13 +117,16 @@ while True:
         upperPipes.pop(0)
         lowerPipes.pop(0)
 
-    if input_actions[1] == 1:
-        if self.playery > -2 * PLAYER_HEIGHT:
-            self.playerVelY = self.playerFlapAcc
-            self.playerFlapped = True
+
+
+    input_actions = random.randint(0,6)
+    if input_actions % 3==0:
+        playerVelY = playerFlapAcc
+        playerFlapped = True
 
 
     # player's movement
+
     if playerVelY < playerMaxVelY and not playerFlapped:
         playerVelY += playerAccY
     if playerFlapped:
@@ -133,12 +138,12 @@ while True:
         playery = 0
 
 
-    x = x + 3
-    y = y - 2
-    if x>SCREENWIDTH:
-        x=0
-    if y<0:
-        y=SCREENHEIGHT
+    x = 1/2*SCREENWIDTH
+    #y = y - 2
+    #if x>SCREENWIDTH:
+    #    x=0
+    #if y<0:
+    #    y=SCREENHEIGHT
     # background
     SCREEN.blit(IMAGES['background'], (0,0))
     
@@ -148,7 +153,7 @@ while True:
         SCREEN.blit(IMAGES['pipe'][0], (uPipe['x'],uPipe['y']))
         SCREEN.blit(IMAGES['pipe'][1], (lPipe['x'],lPipe['y']))
     
-    # SCREEN.blit(IMAGES['bird'][flap],(x,y))
+    SCREEN.blit(IMAGES['bird'][flap],(x,playery))
     
     flap = flap+1            
     
