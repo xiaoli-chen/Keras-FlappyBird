@@ -86,6 +86,7 @@ class GameState:
         # playerIndex basex change
         if (self.loopIter + 1) % 3 == 0:
             self.playerIndex = next(PLAYER_INDEX_GEN)
+            
         self.loopIter = (self.loopIter + 1) % 30
         self.basex = -((-self.basex + 100) % self.baseShift)
 
@@ -94,7 +95,9 @@ class GameState:
             self.playerVelY += self.playerAccY
         if self.playerFlapped:
             self.playerFlapped = False
+
         self.playery += min(self.playerVelY, BASEY - self.playery - PLAYER_HEIGHT)
+        
         if self.playery < 0:
             self.playery = 0
 

@@ -59,24 +59,27 @@ while True:
         if event.type == QUIT:
             exit()
 
-        flap = flap+1        
-        if (flap + 1) % 3 == 0:
-            flap = 0  #next(PLAYER_INDEX_GEN)
-            
- 
-    
+  
+    x = x + 3
+    y = y - 2
     if x>SCREENWIDTH:
         x=0
-
-    if y>SCREENHEIGHT:
-        y=0
+    if y<0:
+        y=SCREENHEIGHT
     # background
     SCREEN.blit(IMAGES['background'], (0,0))
     SCREEN.blit(IMAGES['pipe'][0], (0,0))
     SCREEN.blit(IMAGES['pipe'][1], (0,SCREENHEIGHT-PIPE_HEIGHT))
     SCREEN.blit(IMAGES['bird'][flap],(x,y))
     
+    flap = flap+1            
+    
+    if flap % 3 == 0:
+        flap = 0  #next(PLAYER_INDEX_GEN)
+    
+    
     pygame.display.update()
-    #FPSCLOCK.tick(FPS)
+    FPSCLOCK.tick(FPS)
 
     #刷新一下画面
+

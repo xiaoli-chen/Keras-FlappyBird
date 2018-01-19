@@ -13,6 +13,8 @@ PLAYER_PATH = (
 SCREENWIDTH  = 288
 SCREENHEIGHT = 512
 IMAGES = {}
+
+
 import pygame
 from pygame.locals import *
 from sys import exit #引入sys中exit函数

@@ -1,4 +1,6 @@
 #!/usr/bin/env python
+# coding:utf-8
+
 # 该代码源自yanpanlau的Keras-FlappyBird，陈晓理做出Keras调用上的相应更新，以便在最新版本上使用
 # 申明调包
 from __future__ import print_function
