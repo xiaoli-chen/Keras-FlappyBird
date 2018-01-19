@@ -1,4 +1,7 @@
 # 基本的元素
+#FPS = 30
+playerIndex=0
+
 BACKGROUND_PATH = './assets/sprites/background-black.png'
 PIPE_PATH = './assets/sprites/pipe-green.png'
 BASE_PATH = './assets/sprites/base.png'
@@ -13,8 +16,13 @@ IMAGES = {}
 import pygame
 from pygame.locals import *
 from sys import exit #引入sys中exit函数
+from itertools import cycle
 
-#初始化pygame,为使用硬件做准备
+FPS = 30
+FPSCLOCK = pygame.time.Clock()
+PLAYER_INDEX_GEN = cycle([0, 1, 2, 1])
+
+#初始化pygame
 pygame.init()
 
 #创建了窗口
@@ -39,16 +47,36 @@ IMAGES['pipe'] = (
 PIPE_WIDTH = IMAGES['pipe'][0].get_width()
 PIPE_HEIGHT = IMAGES['pipe'][0].get_height()
 
+# 小鸟坐标初始化
+x = 1/2 * SCREENWIDTH
+y = 1/2 * SCREENHEIGHT
+move_x = 0
+move_y = 0
+flap  = 0 # 扑腾的状态
+
 while True:
     for event in pygame.event.get():
         if event.type == QUIT:
             exit()
 
+        flap = flap+1        
+        if (flap + 1) % 3 == 0:
+            flap = 0  #next(PLAYER_INDEX_GEN)
+            
+ 
+    
+    if x>SCREENWIDTH:
+        x=0
+
+    if y>SCREENHEIGHT:
+        y=0
     # background
     SCREEN.blit(IMAGES['background'], (0,0))
     SCREEN.blit(IMAGES['pipe'][0], (0,0))
     SCREEN.blit(IMAGES['pipe'][1], (0,SCREENHEIGHT-PIPE_HEIGHT))
-
-
+    SCREEN.blit(IMAGES['bird'][flap],(x,y))
+    
     pygame.display.update()
+    #FPSCLOCK.tick(FPS)
+
     #刷新一下画面

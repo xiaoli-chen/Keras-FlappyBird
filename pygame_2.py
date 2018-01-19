@@ -54,16 +54,16 @@ while True:
             exit()
         if event.type == KEYDOWN:
             if event.key == K_LEFT:
-                move_x = -1
+                move_x = -3
             elif event.key == K_RIGHT:
-                move_x = 1
+                move_x = 3
             elif event.key == K_UP:
-                move_y = -1
+                move_y = -3
             elif event.key == K_DOWN:
-                move_y = 1
-            elif event.type == KEYUP:
-                move_x = 0
-                move_y = 0
+                move_y = 3
+        elif event.type == KEYUP:
+            move_x = 0
+            move_y = 0
                 
         x = x + move_x
         y = y + move_y
